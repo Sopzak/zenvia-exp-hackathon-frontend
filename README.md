@@ -5,7 +5,7 @@ Este é o front end do e-comerce que consome a API da [zenapi](https://zenapi.ze
 Linguagens: React, node e JavaScript
 
 ## Somos o TIME 41
-Desenvolvemos uma plataforma que é um berçario para pequenos estabelecimentos que precisam de um vender seus produtos on-line atrasvez de ferramentas de comunicaçao com o Whatssapp e o Facebook.
+Desenvolvemos uma plataforma que é um berçario para pequenos estabelecimentos que precisam de um vender seus produtos on-line atrasvez de ferramentas de comunicaçao como Whatssapp.
 
 ### O QUE É O ZENVIA EXPERIENCE HACKATHON?
 
