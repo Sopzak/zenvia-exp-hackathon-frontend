@@ -45,7 +45,8 @@ export default class HomeScreen extends Component {
 	}
 
 	productSuccessHandler = (products) => {
-		this.setState({products: products});
+		console.log(products);
+		this.setState({products: {"products" : products} });
 	}
 
 	erorHandler = (error) => {
@@ -121,7 +122,8 @@ export default class HomeScreen extends Component {
 
 	getProductEndpoint = (searchKeyword) => {
 		let categoryId = this.getCategoryId(this.props);
-		let endPoint = ApiEndpoints.PRODUCT_URL;
+		//let endPoint = ApiEndpoints.PRODUCT_URL;
+		let endPoint = ApiEndpoints.COMPANY_URL + '/1/departments/1/products';
 		if (searchKeyword) {
 			return endPoint + '?'+ QueryParam.SEARCH + '=' + searchKeyword;
 		}

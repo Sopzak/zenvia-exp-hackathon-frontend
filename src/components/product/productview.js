@@ -6,10 +6,10 @@ export default class Product extends Component {
 		return (
 			<div id='productContainer'>
 				<div id='productImageContainer'>
-					<img id='productImage' src={this.props.product.image} alt='Product'/>
+					<img id='productImage' src={(this.props.product.image? this.props.product.image: 'https://www.ferramentastenace.com.br/wp-content/uploads/2017/11/sem-foto.jpg')} alt='Product'/>
 				</div>
 				<div id='productTitle'>
-					<p>{this.props.product.title}</p>
+					<p>{this.props.product.description}</p>
 				</div>
 				<div id='productPrice'>
 					<p>R$ {this.props.product.price}</p>
