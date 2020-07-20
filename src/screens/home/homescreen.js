@@ -8,6 +8,19 @@ import ApiConnector from '../../api/apiconnector';
 import ApiEndpoints from '../../api/apiendpoints';
 import QueryParam from '../../api/apiqueryparams';
 
+
+const 	Modal = ({ handleClose, show, children }) => {
+	const showHideClassName = show ? "modal display-block" : "modal display-none";
+  
+	return (
+	  <div className={showHideClassName}>
+		<section className="modal-main">
+		  {children}
+		</section>
+	  </div>
+	);
+};
+
 export default class HomeScreen extends Component {
 	constructor(props) {
 		super(props);
@@ -16,6 +29,9 @@ export default class HomeScreen extends Component {
 			isShowShoppingCart: false,
 			products: {},
 			cart: {},
+			company: {},
+			store: {id:0},
+			chooseStore: true,
 			totalCartItem: 0
 		}
 	}
@@ -32,11 +48,76 @@ export default class HomeScreen extends Component {
 		this.setState({products: products});
 	}
 
-	erorHandler = (error) => {console.error(error)} //TODO:show error right below of header
+	erorHandler = (error) => {
+		var products_teste = [
+			{	"id":123,
+				"price": 10.99,
+				"title": "teste de teste",
+				"image": "http://t2.rg.ltmcdn.com/pt/images/0/6/3/img_cachorro_quente_americano_6360_600.jpg" 
+			},
+			{	"id":111,
+				"price": 10.99,
+				"title": "teste de teste",
+				"image": "http://t2.rg.ltmcdn.com/pt/images/0/6/3/img_cachorro_quente_americano_6360_600.jpg" 
+			},
+			{	"id":222,
+				"price": 10.99,
+				"title": "teste de teste",
+				"image": "http://t2.rg.ltmcdn.com/pt/images/0/6/3/img_cachorro_quente_americano_6360_600.jpg" 
+			},
+				{	"id":33,
+				"price": 10.99,
+				"title": "teste de teste",
+				"image": "https://t2.rg.ltmcdn.com/pt/images/0/6/3/img_cachorro_quente_americano_6360_600.jpg" 
+			},
+				{	"id":44,
+				"price": 10.99,
+				"title": "teste de teste",
+				"image": "https://t2.rg.ltmcdn.com/pt/images/0/6/3/img_cachorro_quente_americano_6360_600.jpg" 
+			},
+			{	"id":125553,
+				"price": 10.99,
+				"title": "teste de teste",
+				"image": "https://t2.rg.ltmcdn.com/pt/images/0/6/3/img_cachorro_quente_americano_6360_600.jpg" 
+				},
+		];
+		this.setState({products: {products : products_teste}});
+		console.error(error);
+		//alert("sdhfkshd");
+	}; //TODO:show error right below of header
 
 	getCategoryId = (props) => {
 		return props.match ? props.match.params.categoryId : null;
 	}
+
+	companySuccessHandler = (company) => {
+		//alert('Yes');
+		this.setState({company: company});
+		if(this.state.store.id !== 0){
+			this.setState({store: company[0]});
+		}
+	}
+
+	errorHandlerCompany = (error) => {
+
+		//alert(this.state.store.id );
+		if(this.state.store.id !== 0){
+			if(this.state.store.id === 1){
+				this.setState({store: this.state.company[0] });
+			}else{
+				if(this.state.store.id === 2){
+					this.setState({store: this.state.company[1] });
+				}
+			}
+		}
+		var company_test = [
+			{ "id": 1, "name": "Jesiel lanches",  "cnpj": "12345678000101"},
+			{ "id": 2, "name": "Ju store",  "cnpj": "12345678000101"},
+			];
+		this.setState({company: company_test });
+		//console.error(error);
+	} //TODO:show error right below of header
+
 
 	getProductEndpoint = (searchKeyword) => {
 		let categoryId = this.getCategoryId(this.props);
@@ -64,10 +145,34 @@ export default class HomeScreen extends Component {
 		if (catId !== prevCatId) {
 			this.fetchProducts();
 		}
+
+	}
+
+	fetchCompany = (storedId) =>{
+		if(storedId !== 0){
+			ApiConnector.sendRequest(
+				ApiEndpoints.COMPANY_URL + '/' + storedId,
+				this.companySuccessHandler,
+				this.errorHandlerCompany
+			);
+		}else{
+			ApiConnector.sendRequest(
+				ApiEndpoints.COMPANY_URL,
+				this.companySuccessHandler,
+				this.errorHandlerCompany
+			);
+		}
 	}
 
 	componentDidMount() {
 		this.fetchProducts();
+		if (this.state.store.id !== this.props.match.params.storeId){
+			//alert('achei');
+			this.setState( {store: {"id":this.props.match.params.storeId, "name": 'teste'}});
+			this.fetchCompany(this.props.match.params.storeId);
+		}else{
+			this.fetchCompany(0);
+		}
 	}
 
 	productSearchHandler = (searchKeyword) => {
@@ -96,32 +201,52 @@ export default class HomeScreen extends Component {
 		this.setState({cart: cart, totalCartItem: this.getTotalCartItem()});
 	}
 
-	render() {
-		return (
-			<React.Fragment>
-				<Header
-					toggleSidebar={this.toggleSidebar}
-					toggleShoppingCart={this.toggleShoppingCart}
-					totalCartItem={this.state.totalCartItem}
-					productSearchHandler={this.productSearchHandler}
-				/>
-				<div id='bodyContainer'>
-					<SideBar isShowSidebar={this.state.isShowSidebar} />
-					<Body
-						products={this.state.products.products}
-						addToCartHandler={this.addToCartHandler}
-						isShowSidebar={this.state.isShowSidebar}
-						isShowShoppingCart={this.state.isShowShoppingCart}
+	render() {	
+		
+		if (this.state.company.length > 0 && this.state.store.id === '0'){
+			return (
+				<Modal show={true} handleClose={false}>
+					{
+						this.state.company.map((store) => (
+							<div style={{flex:1, flexDirection: "column"}}>
+								<div id='logo' style={{flex:2,}}>
+									<a href={'/'+ store.id}>{store.name}</a>
+								</div>
+							</div>
+						))
+					}
+					
+				</Modal>
+			);
+		}
+		else{		
+			return (
+				<React.Fragment>
+					<Header
+						toggleSidebar={this.toggleSidebar}
+						toggleShoppingCart={this.toggleShoppingCart}
+						totalCartItem={this.state.totalCartItem}
+						productSearchHandler={this.productSearchHandler}
+						store={(this.state.company? this.state.company.name : 'Loja')}
 					/>
-					<ShoppingCart
-						isShowShoppingCart={this.state.isShowShoppingCart}
-						cart={this.state.cart}
-						products={this.state.products.products}
-						setProductQuantityToCart={this.setProductQuantityToCart}
-						productRemoveHandler={this.productRemoveHandler}
-					/>
-				</div>
-			</React.Fragment>
-		);
+					<div id='bodyContainer'>
+						<SideBar isShowSidebar={this.state.isShowSidebar} />
+						<Body
+							products={this.state.products.products}
+							addToCartHandler={this.addToCartHandler}
+							isShowSidebar={this.state.isShowSidebar}
+							isShowShoppingCart={this.state.isShowShoppingCart}
+						/>
+						<ShoppingCart
+							isShowShoppingCart={this.state.isShowShoppingCart}
+							cart={this.state.cart}
+							products={this.state.products.products}
+							setProductQuantityToCart={this.setProductQuantityToCart}
+							productRemoveHandler={this.productRemoveHandler}
+						/>
+					</div>
+				</React.Fragment>
+			);
+		}
 	}
 }

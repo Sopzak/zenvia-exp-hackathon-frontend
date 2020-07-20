@@ -12,14 +12,14 @@ export default class Product extends Component {
 					<p>{this.props.product.title}</p>
 				</div>
 				<div id='productPrice'>
-					<p>${this.props.product.price}</p>
+					<p>R$ {this.props.product.price}</p>
 				</div>
 				<div>
 					<button
 						id='addToCartButton'
 						onClick={() => this.props.addToCartHandler(this.props.product)}
 					>
-						Add To Cart
+						Adicionar ao carrinho
 					</button>
 				</div>
 			</div>

@@ -1,20 +1,10 @@
 ## Ecommerce Web
 
-This is the front end of [ecomcore](https://github.com/abdurraufraihan/ecomcore)
+Este é o front end do e-comerce que consome a API da [zenapi](https://zenapi.zenvia.com/) para o [HAKATHON](https://zenapi.zenvia.com/zex_hackathon) criado em 19/07/2020.
 
-### For installing this App please do this following steps
+## Somos o TIME 41
+Desenvolvemos uma plataforma que é um berçario para pequenos estabelecimentos que precisam de um vender seus produtos on-line atrasvez de ferramentas de comunicaçao com o Whatssapp e o Facebook.
 
-`1. Clone this repository: git clone https://github.com/abdurraufraihan/ecomweb.git`<br />
-`2. Then go to ecomweb directory: cd ecomweb`<br />
-`3. Install dependency: npm install`<br />
-`4. Run the app in the development mode: npm start`<br />
+### O QUE É O ZENVIA EXPERIENCE HACKATHON?
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.<br />
-
-`NOTE: Please keep the ecomcore running before run this front-end App`
-
-Here is some preview of this App<br />
-1. Default Homepage<br />
-![Product Home Page](https://drive.google.com/uc?export=view&id=15OQk7ay5g7BvqsZpQPrZ_6F7dY7pkYhr)<br />
-2. Homepage with shopping cart<br />
-![Product Home Page With Cart](https://drive.google.com/uc?export=view&id=1AB2uRNS4OnmWWx4szwQsqa1hUIA4PnN-)
+É uma maratona de programação para estimular e incentivar a criatividade, inovação e tecnologia na busca por soluções nas plataformas de comunicação.

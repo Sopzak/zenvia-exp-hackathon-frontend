@@ -57,8 +57,8 @@ export default class ShoppingCart extends Component {
 				</div>
 				<div id='orderButtonContainer'>
 					<div id='orderButton'>
-						<div id='placeOrder'>Place Order</div>
-					<div id='orderPrice'>${this.getTotalOrderPrice()}</div>
+						<div id='placeOrder'>Valor total</div>
+					<div id='orderPrice'>R$ {this.getTotalOrderPrice()}</div>
 					</div>
 				</div>
 			</div>

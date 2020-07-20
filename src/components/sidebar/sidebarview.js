@@ -23,7 +23,9 @@ export default class SideBar extends Component {
 		this.setState({categories: categories});
 	}
 
-	erorHandler = (error) => {console.error(error)} //TODO:show error right below of header
+	errorHandler = (error) => {
+		console.error(error);
+	} //TODO:show error right below of header
 
 	componentDidMount() {
 		ApiConnector.sendRequest(
@@ -31,6 +33,8 @@ export default class SideBar extends Component {
 			this.categorySuccessHandler,
 			this.errorHandler
 		);
+		var categories_test = [{ "id": 1, "name": "Hot-Dogs"}];
+		this.setState({categories: categories_test });
 	}
 
 	render() {
@@ -39,7 +43,7 @@ export default class SideBar extends Component {
 				<div id='sideBarBody'>
 					{this.state.categories.length > 0 ?
 						<ul>
-							<Link to='/'><li>------------All------------</li></Link>
+							<Link to='/'><li>Todos</li></Link>
 							{this.state.categories.map((category) => (
 								<Link key={category.id} to={this.getCategoryLink(category.id)}>
 									<li>{category.name}</li>

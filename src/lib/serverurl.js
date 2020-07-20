@@ -1,5 +1,5 @@
 const ServerUrl = {
-	BASE_URL: 'http://127.0.0.1:8000/'
+	BASE_URL: 'https://zenvia-exp-hackathon-backend.herokuapp.com/'
 };
 
 export default ServerUrl;

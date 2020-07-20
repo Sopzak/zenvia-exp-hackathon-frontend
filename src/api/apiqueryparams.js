@@ -1,5 +1,5 @@
 const QueryParam = {
-	CATEGORY_ID: 	'catId',
+	CATEGORY_ID: 	'id',
 	SEARCH: 'search'
 };
 
